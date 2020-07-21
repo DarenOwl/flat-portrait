@@ -84,6 +84,7 @@ body{
     border-radius: 20px;
     background-color: white;
     transition: 10ms;
+    border: 0px;
 }
 
 .card-menu:hover{
@@ -112,7 +113,7 @@ body{
     padding-right: -20px;
 }
 
-#items-deck{
+#editor-deck{
     margin-left: 2%;
     margin-right: 2%;
 }

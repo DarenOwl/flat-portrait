@@ -4,7 +4,7 @@ window.onload = function () {
     initColorPicker();
     AddBodyParts();
     console.log(portraitPack);
-    var c = new Controller("portrait", null, "categories-menu");
+    var c = new Controller("portrait", "editor-deck", "categories-menu");
     c.ApplyPortraitPack(portraitPack);
 };
 
@@ -50,6 +50,7 @@ class Controller {
     }
 }
 
+/**Класс с элементами */
 class Editor {
     constructor(deckId, menuId){
         this.menu = document.getElementById(menuId);
@@ -58,18 +59,26 @@ class Editor {
     }
 
     AppendLayer(layer){
-        this.layers.push(Layer);
+        this.layers.push(layer);
 
-        var card = document.createElement("div");
-        card.className = "card-menu";
-
+        //создаем кнопку в меню
+        var button = document.createElement("button");
+        button.className = "card-menu";
+        //onclick переключаем слой в эдиторе
+        button.onclick = () => {
+            this.deck.innerHTML = '';
+            console.log("switched to layer: " + layer.name);
+        }
+        //добавляем иконку кнопки
         var icon = document.createElement("img");
         icon.class = "card-menu-img";
         icon.src = layer.icon;
         icon.alt = layer.name;
-        card.appendChild(icon);
+        button.appendChild(icon);
+        //добавляем кнопку в меню
+        this.menu.appendChild(button);
+        //
 
-        this.menu.appendChild(card);
         console.log("menu button added: " + layer.name);
     }
 }
