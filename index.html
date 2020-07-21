@@ -1,73 +1,80 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8"/>
-        <script type="text/javascript" src="script.js"></script>
-        <link rel="stylesheet" type="text/css" href="style.css">
-    </head>
+
+<head>
+    <meta charset="utf-8" />
+    <script type="text/javascript" src="script.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
 <body>
 
-<div class="row">
-    <div class="column">
-        <div class="edit-panel">
-            <div id="categories-menu" class="card-deck">
-                <div class="card-menu">
-                  <img class="card-menu-img" src="face-basic.svg" alt="Head">
+    <div class="row">
+        <div class="column">
+            <div class="edit-panel">
+
+                <div id="categories-menu" class="card-deck">
                 </div>
-                <div class="card-menu">
-                  <img class="card-menu-img" src="hair-icon.svg" alt="Hair">
+
+                <div id="items-deck" class="card-deck">
+                    <div class="card">
+                        <img class="card-img" src="img/face-basic.svg" alt="face-basic">
+                    </div>
+                    <div class="card">
+                        <img class="card-img" src="img/face-chin.svg" alt="face-chin">
+                    </div>
+                    <div class="card">
+                        <img class="card-img" src="img/face-ears.svg" alt="face-ears">
+                    </div>
+                    <div class="card">
+                        <img class="card-img" src="img/face-cheeks.svg" alt="face-cheeks">
+                    </div>
+                    <div class="card">
+                        <img class="card-img" src="img/face-basic.svg" alt="Card image cap">
+                    </div>
+                    <div class="card">
+                        <img class="card-img" src="img/face-chin.svg" alt="Card image cap">
+                    </div>
+                    <div class="card">
+                        <img class="card-img" src="img/face-basic.svg" alt="Card image cap">
+                    </div>
+                    <div class="card">
+                        <img class="card-img" src="img/face-chin.svg" alt="Card image cap">
+                    </div>
                 </div>
-                <div class="card-menu">
-                  <img class="card-menu-img" src="face-ears.svg" alt="Hair">
-                </div>
-                <div class="card-menu">
-                    <img class="card-menu-img" src="face-cheeks.svg" alt="Cloth">
-                </div>
-            </div>
-            <div id="items-deck" class="card-deck">
-                <div class="card">
-                  <img class="card-img" src="face-basic.svg" alt="face-basic">
-                </div>
-                <div class="card">
-                  <img class="card-img" src="face-chin.svg" alt="face-chin">
-                </div>
-                <div class="card">
-                  <img class="card-img" src="face-ears.svg" alt="face-ears">
-                </div>
-                <div class="card">
-                    <img class="card-img" src="face-cheeks.svg" alt="face-cheeks">
-                </div>
-                <div class="card">
-                  <img class="card-img" src="face-basic.svg" alt="Card image cap">
-                </div>
-                <div class="card">
-                  <img class="card-img" src="face-chin.svg" alt="Card image cap">
-                </div>
-                <div class="card">
-                    <img class="card-img" src="face-basic.svg" alt="Card image cap">
-                  </div>
-                  <div class="card">
-                    <img class="card-img" src="face-chin.svg" alt="Card image cap">
-                  </div>
+
             </div>
         </div>
-    </div>
-    <div class="column">
-        <div class="avatar-container">
-            <svg viewBox="-0.5 -0.5 161 301">
-                <g id="neck" class="skin" onclick="alert('neck')">
-                    <rect x="50" y="180" width="60" height="70"/>
-                    <ellipse cx="80" cy="260" rx="80" ry="40"/>
-                </g>
-                <g>
-                    <path d="M 60 170 Q 100 170 100 200 Q 100 230 60 230 Z" fill-opacity="0.1" fill="#000000" stroke="none" transform="rotate(90,80,200)" pointer-events="all"/>
-                </g >
-                <g id="face" class="skin"  onclick="alert('face')">
-                </g>
-            </svg>
+        
+        <div class="column">
+            <div class="avatar-container">
+                <svg id="portrait" viewBox="-0.5 -0.5 161 301">
+                    <g id="background" fill="none">
+                      <!--Фон не менять, только цвет-->
+                      <rect x="0" y="0" width="410" height="583" rx="61.5" ry="61.5" stroke="none"/>
+                    </g>
+                    <g id="neck" class="skin" onclick="alert('neck')">
+                        <rect x="50" y="180" width="60" height="70" />
+                        <ellipse cx="80" cy="260" rx="80" ry="40" />
+                    </g>
+
+                    <g>
+                        <path d="M 60 170 Q 100 170 100 200 Q 100 230 60 230 Z" fill-opacity="0.1" fill="#000000"
+                            stroke="none" transform="rotate(90,80,200)" pointer-events="all" />
+                    </g>
+
+                    <g id="face" class="skin" onclick="alert('face')">
+                    </g>
+                    <g>
+                        <path d="M 119.67 40.79 Q 175.59 40.79 175.59 82.64 Q 175.59 124.5 119.67 124.5 Q 147.63 82.64 119.67 40.79 Z" 
+  fill="#5c2e00" stroke="none" transform="rotate(155,147.63,82.64)" pointer-events="all"/>
+                    </g>
+                </svg>
+            </div>
+            <input id="colorPicker" type="color">
         </div>
-        <input id="colorPicker" type="color">
+
     </div>
-</div> 
 </body>
-</html> 
+
+</html>
