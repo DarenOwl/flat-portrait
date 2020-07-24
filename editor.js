@@ -62,7 +62,12 @@ class Editor {
         //создаемГруппу
         var g = document.createElementNS("http://www.w3.org/2000/svg", "g");
         g.setAttribute("id", layer.name);
+        g.setAttribute("class", "portrait-group");
         g.setAttribute("fill", GetRandomFrom(layer.fills));
+        g.onclick = (e) => {
+            console.log("clicked on part: " + layer.name);
+            ColorPicker.Open(e.x, e.y, layer.fills, (color) => g.setAttribute("fill", color));
+        };
         this.svg.appendChild(g);
     }
 

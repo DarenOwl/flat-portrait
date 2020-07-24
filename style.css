@@ -105,6 +105,26 @@ body{
     fill: #9c9494;
 }
 
+.color{
+    width: 30px;
+    height: 30px;
+    border-width: thick;
+    border-radius: 50%;
+    stroke: wheat;
+    margin: 2px;
+    box-shadow: 0 8px 4px 0 rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+.portrait-group{
+    cursor: pointer;
+}
+
+#color-picker{
+    position: absolute;
+    display: flex
+}
+
 #portrait-container{
     width: 80%;
     height: 800px;
