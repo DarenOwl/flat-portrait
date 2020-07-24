@@ -1,18 +1,11 @@
 body{
-    background-color: tomato;
+    background-color: #3d2b2c;
 }
 .row {
     display: flex;
 }
-
-.column {
+.column{
     flex: 50%;
-}
-
-.avatar-container{
-    width: 30%;
-    margin-top: 20%;
-    margin-left: 20%;
 }
 
 .categories-list{
@@ -56,11 +49,12 @@ body{
     display: flex;
     flex: 1 0 0%;
     flex-direction: column;
-    margin: 20px;
-    padding: 20px;
+    margin: 10px;
     border-radius: 20px;
-    background-color: rgb(57, 56, 66);
+    background-color: #734344;
     transition: 10ms;
+    align-content: center;
+    width: 100px;
 }
 
 .card:hover{
@@ -84,6 +78,7 @@ body{
     border-radius: 20px;
     background-color: white;
     transition: 10ms;
+    border: 0px;
 }
 
 .card-menu:hover{
@@ -102,7 +97,46 @@ body{
 }
 
 .card-img {
-    height: 200px;
+    width: 200px;
+    height: 300px;
+}
+
+.preview {
+    fill: #9c9494;
+}
+.base {
+    fill: #1d3d3d;
+}
+
+.color{
+    width: 30px;
+    height: 30px;
+    border-width: thick;
+    border-radius: 50%;
+    stroke: wheat;
+    margin: 2px;
+    box-shadow: 0 8px 4px 0 rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+.portrait-group{
+    cursor: pointer;
+}
+
+#color-picker{
+    position: absolute;
+    display: flex
+}
+
+#portrait-container{
+    width: 80%;
+    height: 800px;
+    align-content: center;
+}
+
+#portrait{
+    width: 100%;
+    height: 100%;
 }
 
 #categories-menu{
@@ -112,7 +146,7 @@ body{
     padding-right: -20px;
 }
 
-#items-deck{
+#editor-deck{
     margin-left: 2%;
     margin-right: 2%;
 }
