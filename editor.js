@@ -31,6 +31,7 @@ class Editor {
     }
 
     SetLayers(layersData) {
+        var baseAdded = false;
         for (var id in layersData) {
             var layer = layersData[id];
             //добавляем кнопку в меню
@@ -93,7 +94,11 @@ class Editor {
         el.innerHTML = img;
         //создаем группу для задания заливки базы
         var base = document.createElementNS("http://www.w3.org/2000/svg", "g");
-        base.setAttribute("class", "base");
+        if (layer.position == 0) {
+            base.setAttribute("class", "preview");
+        } else {
+            base.setAttribute("class", "base");
+        }        
         base.innerHTML = this.pack.base.svg;
         //в зависимости от пложения слоя добавляем группу
         if (layer.position < 0){
@@ -108,7 +113,11 @@ class Editor {
         //вешаем onclick - добавление html в слой
         card.onclick = () => {
             var g = document.getElementById(layer.name);
-            g.innerHTML = img;
+            if (layer.position == 0){
+                g.innerHTML = this.pack.base.svg + img;
+            } else {
+                g.innerHTML = img;
+            }
         }
         this.deck.appendChild(card);
     }
