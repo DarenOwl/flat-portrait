@@ -123,6 +123,10 @@ body{
     cursor: pointer;
 }
 
+
+#edit-panel{
+    width: 50%;
+}
 #color-picker{
     position: absolute;
     display: flex

@@ -8,6 +8,7 @@
     <script type="text/javascript" src="colorpicker.js"></script>
     <script type="text/javascript" src="helpfunctions.js"></script>
     <script type="text/javascript" src="data.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@jaames/iro"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -15,23 +16,20 @@
 <body>
 
     <div class="row">
-        <div class="column">
-            <div class="edit-panel">
+            <div id="edit-panel" class="column">
 
                 <div id="categories-menu" class="card-deck">
                 </div>
 
                 <div id="editor-deck" class="card-deck">
                 </div>
+                <div class="wheel" id="colorWheelDemo"></div>
 
             </div>
-        </div>
         
-        <div class="column">
-            <div id="portrait-container">
+            <div id="portrait-container" class="column">
                 
             </div>
-        </div>
 
     </div>
 </body>
