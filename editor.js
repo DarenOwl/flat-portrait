@@ -50,10 +50,9 @@ class Editor {
             this.SwitchLayer(layer);
         };
         //добавляем иконку кнопки
-        var icon = document.createElement("img");
-        icon.class = "card-menu-img";
-        icon.src = layer.icon;
-        icon.alt = layer.name;
+        var icon = document.createElement("i");
+        icon.setAttribute("class",layer.icon);
+        icon.setAttribute("style","color:#666;")
         button.appendChild(icon);
         //добавляем кнопку в меню
         this.menu.appendChild(button);
@@ -66,10 +65,9 @@ class Editor {
         //onclick запукаем рандом
         button.onclick = () => { this.Random();};
         //добавляем иконку кнопки
-        var icon = document.createElement("img");
-        icon.class = "card-menu-img";
-        icon.src = "img/random.png";
-        icon.alt = "R";
+        var icon = document.createElement("i");
+        icon.setAttribute("class","fa fa-dice");
+        icon.setAttribute("style","color:#666;")
         button.appendChild(icon);
         //добавляем кнопку в меню
         this.menu.appendChild(button);
