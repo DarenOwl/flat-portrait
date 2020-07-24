@@ -14,6 +14,7 @@ class Editor {
         this.svg.setAttribute("id","portrait");
         this.SetPortraitSvg(this.svg);
         this.SetLayers(pack.layers);
+        this.AddRandomButton();
     }
 
     CreateSVG(settings){
@@ -47,12 +48,28 @@ class Editor {
         //onclick переключаем слой в эдиторе
         button.onclick = () => {
             this.SwitchLayer(layer);
-        }
+        };
         //добавляем иконку кнопки
         var icon = document.createElement("img");
         icon.class = "card-menu-img";
         icon.src = layer.icon;
         icon.alt = layer.name;
+        button.appendChild(icon);
+        //добавляем кнопку в меню
+        this.menu.appendChild(button);
+        console.log("menu button added: " + layer.name);
+    }
+
+    AddRandomButton(){
+        var button = document.createElement("button");
+        button.className = "card-menu";
+        //onclick запукаем рандом
+        button.onclick = () => { this.Random();};
+        //добавляем иконку кнопки
+        var icon = document.createElement("img");
+        icon.class = "card-menu-img";
+        icon.src = "img/random.png";
+        icon.alt = "R";
         button.appendChild(icon);
         //добавляем кнопку в меню
         this.menu.appendChild(button);
@@ -67,7 +84,8 @@ class Editor {
         g.setAttribute("fill", GetRandomFrom(layer.fills));
         g.onclick = (e) => {
             console.log("clicked on part: " + layer.name);
-            ColorPicker.Open(e.x, e.y, layer.fills, (color) => g.setAttribute("fill", color));
+            ColorPicker.Open(e.x, e.y, layer.fills, (color) => g.setAttribute("fill", color), g.getAttribute("fill"));
+            this.SwitchLayer(layer);
         };
         this.svg.appendChild(g);
     }
@@ -120,5 +138,22 @@ class Editor {
             }
         }
         this.deck.appendChild(card);
+    }
+
+    Random(){
+        if (this.pack == null){
+            return;
+        }
+        for(var id in this.pack.layers) {
+            let layer = this.pack.layers[id];
+            let g = document.getElementById(layer.name);
+            if (layer.position == 0) {
+                g.innerHTML = this.pack.base.svg + GetRandomFrom(layer.items);
+            } else {
+                g.innerHTML = GetRandomFrom(layer.items);
+            }
+            g.setAttribute("fill", GetRandomFrom(layer.fills));
+            
+        }
     }
 }

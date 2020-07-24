@@ -1,5 +1,5 @@
 class ColorPicker {
-    static Open(x,y,colors,consumer){
+    static Open(x,y,colors,consumer, color){
         //закрываем предыдущий
         ColorPicker.Close();
         //создаем контейнер
@@ -25,7 +25,7 @@ class ColorPicker {
         var wheel = document.createElement("img");
         wheel.src = "img/colorwheel.svg";
         wheel.setAttribute("class","color");
-        wheel.onclick = () => {ColorPicker.OpenJaames(x,y,consumer)}
+        wheel.onclick = () => {ColorPicker.OpenJaames(x,y,consumer, color)}
         div.appendChild(wheel);
 
         //создаем крестик        
@@ -41,7 +41,7 @@ class ColorPicker {
         }
     }
 
-    static OpenJaames(x,y,consumer){
+    static OpenJaames(x,y,consumer,color){
         this.Close();
 
         var div = document.createElement("div");
@@ -51,6 +51,7 @@ class ColorPicker {
 
         var colorWheel = new iro.ColorPicker("#color-picker", {
             width: "200",
+            color: color,
             layout: [
                 { 
                     component: iro.ui.Wheel,
@@ -74,7 +75,7 @@ class ColorPicker {
           });      
         div.appendChild(this.GetCloseBtn());    
     }
-    
+
     static GetCloseBtn(){
         var icon = document.createElement("i");
         icon.setAttribute("class","fa fa-times");
