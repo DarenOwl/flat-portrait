@@ -104,6 +104,9 @@ body{
 .preview {
     fill: #9c9494;
 }
+.base {
+    fill: #1d3d3d;
+}
 
 .color{
     width: 30px;
