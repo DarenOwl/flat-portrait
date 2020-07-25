@@ -4,25 +4,33 @@ class Editor {
         this.deck = document.getElementById(deckId);
         this.portraitContainer = document.getElementById(portraitContainerId);
         this.pack = null;
-        this.svg = null;
+        this.layerFills = null;
     }
 
     ApplyPack(pack){      
-        this.pack = pack;  
-        this.pack.svgSettings = pack.svgSettings;
-        this.svg = this.CreateSVG(pack.svgSettings);
-        this.svg.setAttribute("id","portrait");
-        this.SetPortraitSvg(this.svg);
-        this.SetLayers(pack.layers);
+        this.pack = pack;
+        this.layerFills = {};
+        for(var key in this.pack.groups) {
+            var group = this.pack.groups[key];
+            this.layerFills[group.name] = group.fills;
+        }
+        var svg = this.CreateSVG(pack.svgSettings, "portrait");
+        this.SetPortraitSvg(svg);
+        //this.SetGroups(svg, pack.groups);
+        this.SetLayers(svg, pack.layers);
         this.AddRandomButton();
+        //устанавливаем случайный набор
+        this.Random();
     }
 
-    CreateSVG(settings){
+    CreateSVG(settings, id = null, className = null){
         var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         svg.setAttribute("width", settings.width);
         svg.setAttribute("height", settings.width);
         svg.setAttribute("viewBox", settings.viewBox);
         svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+        svg.setAttribute("id", id);
+        svg.setAttribute("class", className);
         return svg;        
     }
 
@@ -31,14 +39,23 @@ class Editor {
         this.portraitContainer.appendChild(svg);
     }
 
-    SetLayers(layersData) {
-        var baseAdded = false;
+    SetGroups(svg, groupsData) {
+        for(var key in groupsData){
+            var group = groupsData[key];
+            //добавляем группу в svg для группы слоев
+            svg.appendChild(this.CreateSvgGroup(group));
+            console.log("svg group added for layers group: " + group.name);
+        }
+    }
+
+    SetLayers(svg, layersData) {
         for (var id in layersData) {
             var layer = layersData[id];
             //добавляем кнопку в меню
             this.AddMenuButton(layer);
-            //добавляем группу в svg для слоя
-            this.AddSvgGroup(layer);
+            //добавляем слой в svg
+            svg.appendChild(this.CreateSvgLayer(layer));
+            console.log("svg group added for layer: " + layer.name);
         }
     }
 
@@ -63,7 +80,7 @@ class Editor {
         var button = document.createElement("button");
         button.className = "card-menu";
         //onclick запукаем рандом
-        button.onclick = () => { this.Random();};
+        button.onclick = () => this.Random();
         //добавляем иконку кнопки
         var icon = document.createElement("i");
         icon.setAttribute("class","fa fa-dice");
@@ -71,21 +88,32 @@ class Editor {
         button.appendChild(icon);
         //добавляем кнопку в меню
         this.menu.appendChild(button);
-        console.log("menu button added: " + layer.name);
+        console.log("random button added");
     }
 
-    AddSvgGroup(layer) {
-        //создаемГруппу
+    CreateSvgLayer(layer) {
+        //создаем группу с id = имя слоя
         var g = document.createElementNS("http://www.w3.org/2000/svg", "g");
         g.setAttribute("id", layer.name);
-        g.setAttribute("class", "portrait-group");
-        g.setAttribute("fill", GetRandomFrom(layer.fills));
+        //при нажатии на слой переключаем панель выбора элементов на этот слой
         g.onclick = (e) => {
             console.log("clicked on part: " + layer.name);
-            ColorPicker.Open(e.x, e.y, layer.fills, (color) => g.setAttribute("fill", color), g.getAttribute("fill"));
-            this.SwitchLayer(layer);
+            ColorPicker.Open(e.x, e.y, this.layerFills[layer.group], (color) =>{
+                g.setAttribute("fill", color);
+                if (!layer.independent) {
+                    for (var key in this.pack.layers){
+                        var dependentLayer = this.pack.layers[key];
+                        if (dependentLayer.group != layer.group) {
+                            continue;
+                        }
+                        let dependentG = document.getElementById(dependentLayer.name);
+                        dependentG.setAttribute("fill", color);
+                    }            
+                }
+            }, g.getAttribute("fill"));
+            this.SwitchLayer(layer)
         };
-        this.svg.appendChild(g);
+        return g;
     }
 
     SwitchLayer(layer) {
@@ -142,16 +170,19 @@ class Editor {
         if (this.pack == null){
             return;
         }
-        for(var id in this.pack.layers) {
-            let layer = this.pack.layers[id];
+        //выбираем случайные заливки для групп элементов
+        var randomFills = {};
+        for (var key in this.pack.groups){
+            var group = this.pack.groups[key];
+            randomFills[group.name] = GetRandomFrom(group.fills);
+        }
+        //выбираем случайные элементы для каждого слоя
+        for(var key in this.pack.layers) {
+            let layer = this.pack.layers[key];
             let g = document.getElementById(layer.name);
-            if (layer.position == 0) {
-                g.innerHTML = this.pack.base.svg + GetRandomFrom(layer.items);
-            } else {
-                g.innerHTML = GetRandomFrom(layer.items);
-            }
-            g.setAttribute("fill", GetRandomFrom(layer.fills));
-            
+            g.innerHTML = GetRandomFrom(layer.items);
+            //ставим случайную заливку
+            g.setAttribute("fill", randomFills[layer.group]);
         }
     }
 }
